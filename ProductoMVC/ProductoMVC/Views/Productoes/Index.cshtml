@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ProductoMVC.Models.Producto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create",null, new { @class = "btn" })
+</p>
+<div class="row container">
+    <div class="col s12 m11 l11">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Producto1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Precio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Activo)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Producto1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td data-id="@item.IdProducto">
+                            @if (item.Activo == true)
+                            {
+                                <p>
+                                    <input id="check_@item.IdProducto.ToString()" checked="checked" type="checkbox" value="true" class="filled-in" />
+                                    <label for="check_@item.IdProducto.ToString()">Activo</label>
+                                </p>
+
+                            }
+                            else
+                            {
+                                if (item.Activo == false)
+                                {
+                                    <p data-id="@item.IdProducto">
+                                        <input id="check_@item.IdProducto.ToString()" type="checkbox" value="false" class="filled-in" />
+                                        <label for="check_@item.IdProducto.ToString()">Inactivo</label>
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p data-id="@item.IdProducto">
+                                        <input id="check_@item.IdProducto.ToString()" type="checkbox" value="false" class="filled-in" />
+                                        <label for="check_@item.IdProducto.ToString()">Valor Indeterminado</label>
+                                    </p>
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.IdProducto }, new { @class = "btn small" })
+                            @Html.ActionLink("Details", "Details", new { id = item.IdProducto }, new { @class = "btn orange small" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.IdProducto }, new { @class = "btn red small" })
+                        </td>
+                    </tr>
+                }
+            </tbody>            
+        </table>
+    </div>
+    <div class="col s12 m1 l1">
+        <br />
+        <a href="#" id="btnGuardar" class="btn-large">Guardar</a>
+    </div>
+</div>
+
